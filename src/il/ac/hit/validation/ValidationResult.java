@@ -2,7 +2,7 @@ package il.ac.hit.validation;
 
 import java.util.Optional;
 
-public interface IValidationResult {
+public interface ValidationResult {
     // Returns true if the validation passed, false otherwise
     boolean isValid();
 

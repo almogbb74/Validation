@@ -2,30 +2,30 @@ package il.ac.hit.validation;
 
 import java.util.function.Function;
 
-public interface IUserValidation extends Function<User, IValidationResult> {
+public interface UserValidation extends Function<User, ValidationResult> {
 
-    default IUserValidation and(IUserValidation other) {
+    default UserValidation and(UserValidation other) {
         return user -> {
-            IValidationResult result = this.apply(user); // REMEMBER: "this" also refers to a UserValidation instance.
+            ValidationResult result = this.apply(user); // REMEMBER: "this" also refers to a UserValidation instance.
 
             // If the first check passes, run the second check. Otherwise, return the failure.
             return result.isValid() ? other.apply(user) : result;
         };
     }
 
-    default IUserValidation or(IUserValidation other) {
+    default UserValidation or(UserValidation other) {
         return user -> {
-            IValidationResult result1 = this.apply(user); // REMEMBER: "this" also refers to a UserValidation instance.
+            ValidationResult result1 = this.apply(user); // REMEMBER: "this" also refers to a UserValidation instance.
             if (result1.isValid()) return new Valid();
 
-            IValidationResult result2 = other.apply(user);
+            ValidationResult result2 = other.apply(user);
             if (result2.isValid()) return new Valid();
 
             return new Invalid("Both OR conditions failed.");
         };
     }
 
-    default IUserValidation xor(IUserValidation other) {
+    default UserValidation xor(UserValidation other) {
         return user -> {
             boolean isThisValid = this.apply(user).isValid(); // REMEMBER: "this" also refers to a UserValidation instance.
             boolean isOtherValid = other.apply(user).isValid();
@@ -38,10 +38,10 @@ public interface IUserValidation extends Function<User, IValidationResult> {
         };
     }
 
-    static IUserValidation all(IUserValidation... validations) {
+    static UserValidation all(UserValidation... validations) {
         return user -> {
-            for (IUserValidation validation : validations) {
-                IValidationResult result = validation.apply(user);
+            for (UserValidation validation : validations) {
+                ValidationResult result = validation.apply(user);
                 // Fail immediately on the first invalid result
                 if (!result.isValid()) {
                     return result;
@@ -51,10 +51,10 @@ public interface IUserValidation extends Function<User, IValidationResult> {
         };
     }
 
-    static IUserValidation none(IUserValidation... validations) {
+    static UserValidation none(UserValidation... validations) {
         return user -> {
-            for (IUserValidation validation : validations) {
-                IValidationResult result = validation.apply(user);
+            for (UserValidation validation : validations) {
+                ValidationResult result = validation.apply(user);
                 // If ANY of them are valid, the "none" condition fails
                 if (result.isValid()) {
                     return new Invalid("A condition was unexpectedly fulfilled in a 'none' check.");
@@ -64,25 +64,25 @@ public interface IUserValidation extends Function<User, IValidationResult> {
         };
     }
 
-    static IUserValidation emailEndsWithIL() {
+    static UserValidation emailEndsWithIL() {
         return user -> user.getEmail() != null && user.getEmail().endsWith("il")
                 ? new Valid()
                 : new Invalid("Email does not end with 'il'.");
     }
 
-    static IUserValidation emailLengthBiggerThan10() {
+    static UserValidation emailLengthBiggerThan10() {
         return user -> user.getEmail() != null && user.getEmail().length() > 10
                 ? new Valid()
                 : new Invalid("Email length is not greater than 10.");
     }
 
-    static IUserValidation passwordLengthBiggerThan8() {
+    static UserValidation passwordLengthBiggerThan8() {
         return user -> user.getPassword() != null && user.getPassword().length() > 8
                 ? new Valid()
                 : new Invalid("Password length is not greater than 8.");
     }
 
-    static IUserValidation passwordIncludesLettersNumbersOnly() {
+    static UserValidation passwordIncludesLettersNumbersOnly() {
         return user -> {
             // Using Regex to check for only letters (upper/lowercase) and numbers
             if (user.getPassword() != null && user.getPassword().matches("^[a-zA-Z0-9]+$")) {
@@ -92,25 +92,25 @@ public interface IUserValidation extends Function<User, IValidationResult> {
         };
     }
 
-    static IUserValidation passwordIncludesDollarSign() {
+    static UserValidation passwordIncludesDollarSign() {
         return user -> user.getPassword() != null && user.getPassword().contains("$")
                 ? new Valid()
                 : new Invalid("Password does not include a '$' sign.");
     }
 
-    static IUserValidation passwordIsDifferentFromUsername() {
+    static UserValidation passwordIsDifferentFromUsername() {
         return user -> user.getPassword() != null && !user.getPassword().equals(user.getUsername())
                 ? new Valid()
                 : new Invalid("Password must be different from the username.");
     }
 
-    static IUserValidation ageBiggerThan18() {
+    static UserValidation ageBiggerThan18() {
         return user -> user.getAge() > 18
                 ? new Valid()
                 : new Invalid("Age is not greater than 18.");
     }
 
-    static IUserValidation usernameLengthBiggerThan8() {
+    static UserValidation usernameLengthBiggerThan8() {
         return user -> user.getUsername() != null && user.getUsername().length() > 8
                 ? new Valid()
                 : new Invalid("Username length is not greater than 8.");

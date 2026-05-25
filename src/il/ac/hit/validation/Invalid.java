@@ -2,7 +2,7 @@ package il.ac.hit.validation;
 
 import java.util.Optional;
 
-public class Invalid implements IValidationResult {
+public class Invalid implements ValidationResult {
     private final String reason;
 
     // Constructor to capture the error message

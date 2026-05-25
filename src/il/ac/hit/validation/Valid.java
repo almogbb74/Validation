@@ -2,7 +2,7 @@ package il.ac.hit.validation;
 
 import java.util.Optional;
 
-public class Valid implements IValidationResult {
+public class Valid implements ValidationResult {
 
     @Override
     public boolean isValid() {
