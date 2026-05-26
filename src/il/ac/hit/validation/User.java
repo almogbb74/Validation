@@ -1,6 +1,12 @@
 package il.ac.hit.validation;
 
 public class User {
+    public static final String ERR_USERNAME_NULL = "Username cannot be null or empty.";
+    public static final String ERR_EMAIL_NULL = "Email cannot be null or empty.";
+    public static final String ERR_PASSWORD_NULL = "Password cannot be null or empty.";
+    public static final String ERR_AGE_NEG = "Age cannot be negative.";
+    public static final String GREETING_TEMPLATE = "Hello, %s!\n";
+
     private String username;
     private String email;
     private String password;
@@ -33,34 +39,34 @@ public class User {
 
     public void setUsername(String username) {
         if (username == null || username.isEmpty()) {
-            throw new IllegalArgumentException("Username cannot be null or empty.");
+            throw new IllegalArgumentException(ERR_USERNAME_NULL);
         }
         this.username = username;
     }
 
     public void setEmail(String email) {
         if (email == null || email.isEmpty()) {
-            throw new IllegalArgumentException("Email cannot be null or empty.");
+            throw new IllegalArgumentException(ERR_EMAIL_NULL);
         }
         this.email = email;
     }
 
     public void setPassword(String password) {
         if (password == null || password.isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be null or empty.");
+            throw new IllegalArgumentException(ERR_PASSWORD_NULL);
         }
         this.password = password;
     }
 
     public void setAge(int age) {
         if (age < 0) {
-            throw new IllegalArgumentException("Age cannot be negative.");
+            throw new IllegalArgumentException(ERR_AGE_NEG);
         }
         this.age = age;
     }
 
 
     public void greeting() {
-        System.out.println("Hello, " + username + "!\n");
+        System.out.printf(GREETING_TEMPLATE, getUsername());
     }
 }

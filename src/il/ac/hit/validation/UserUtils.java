@@ -4,19 +4,12 @@ import java.util.Comparator;
 
 public class UserUtils {
 
-    /**
-     * Sorts an array of User objects using the Template Method pattern.
-     * The sorting algorithm is the template, and the specific comparison
-     * logic is provided by the Comparator so we could sort the array by age, name,etc.
-     *
-     * @param users      The array of users to sort
-     * @param comparator The comparator that defines the sorting logic (e.g., by age, username, etc.)
-     */
+    public static final String ERR_USERS_COMPARATOR_NULL = "Please provide a non-null array of users and a non-null comparator.";
 
     public static void sort(User[] users, Comparator<User> comparator) {
         // Safety check
         if (users == null || comparator == null) {
-            throw new IllegalArgumentException("Please provide a non-null array of users and a non-null comparator.");
+            throw new IllegalArgumentException(ERR_USERS_COMPARATOR_NULL);
         }
 
         // Bubble sort
