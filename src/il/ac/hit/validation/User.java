@@ -1,16 +1,16 @@
 package il.ac.hit.validation;
 
 public class User {
-    private final String username;
-    private final String email;
-    private final String password;
+    private String username;
+    private String email;
+    private String password;
     private int age; // Logically, age shouldn't be final since it can change.
 
     public User(String username, String email, String password, int age) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.age = age;
+        setUsername(username);
+        setEmail(email);
+        setPassword(password);
+        setAge(age);
     }
 
     // Getters are necessary so the validation methods can access these fields later
@@ -31,9 +31,34 @@ public class User {
         return age;
     }
 
-    public void setAge(int age) { // Setter for age to allow modification if needed
+    public void setUsername(String username) {
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be null or empty.");
+        }
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        if (email == null || email.isEmpty()) {
+            throw new IllegalArgumentException("Email cannot be null or empty.");
+        }
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be null or empty.");
+        }
+        this.password = password;
+    }
+
+    public void setAge(int age) {
+        if (age < 0) {
+            throw new IllegalArgumentException("Age cannot be negative.");
+        }
         this.age = age;
     }
+
 
     public void greeting() {
         System.out.println("Hello, " + username + "!\n");

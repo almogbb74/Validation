@@ -5,19 +5,18 @@ import java.util.Optional;
 public class Invalid implements ValidationResult {
     private final String reason;
 
-    // Constructor to capture the error message
     public Invalid(String reason) {
         this.reason = reason;
     }
 
+    // Always false for an Invalid object
     @Override
     public boolean isValid() {
-        return false; // Always false for an Invalid object
+        return false;
     }
 
     @Override
     public Optional<String> getReason() {
-        // Return the reason wrapped in an Optional
         return Optional.of(reason);
     }
 }

@@ -12,9 +12,11 @@ public class UserUtils {
      * @param users      The array of users to sort
      * @param comparator The comparator that defines the sorting logic (e.g., by age, username, etc.)
      */
+
     public static void sort(User[] users, Comparator<User> comparator) {
+        // Safety check
         if (users == null || comparator == null) {
-            return; // Safety check
+            throw new IllegalArgumentException("Please provide a non-null array of users and a non-null comparator.");
         }
 
         // Bubble sort

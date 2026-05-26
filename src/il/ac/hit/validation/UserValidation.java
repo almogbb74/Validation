@@ -6,8 +6,8 @@ public interface UserValidation extends Function<User, ValidationResult> {
 
     default UserValidation and(UserValidation other) {
         return user -> {
-            ValidationResult result = this.apply(user); // REMEMBER: "this" also refers to a UserValidation instance.
-
+            // REMEMBER: "this" also refers to a UserValidation instance.
+            ValidationResult result = this.apply(user);
             // If the first check passes, run the second check. Otherwise, return the failure.
             return result.isValid() ? other.apply(user) : result;
         };
@@ -15,7 +15,8 @@ public interface UserValidation extends Function<User, ValidationResult> {
 
     default UserValidation or(UserValidation other) {
         return user -> {
-            ValidationResult result1 = this.apply(user); // REMEMBER: "this" also refers to a UserValidation instance.
+            // REMEMBER: "this" also refers to a UserValidation instance.
+            ValidationResult result1 = this.apply(user);
             if (result1.isValid()) return new Valid();
 
             ValidationResult result2 = other.apply(user);
@@ -27,10 +28,9 @@ public interface UserValidation extends Function<User, ValidationResult> {
 
     default UserValidation xor(UserValidation other) {
         return user -> {
-            boolean isThisValid = this.apply(user).isValid(); // REMEMBER: "this" also refers to a UserValidation instance.
+            // REMEMBER: "this" also refers to a UserValidation instance.
+            boolean isThisValid = this.apply(user).isValid();
             boolean isOtherValid = other.apply(user).isValid();
-
-            // ^ is the logical XOR operator in Java
             if (isThisValid ^ isOtherValid) {
                 return new Valid();
             }
