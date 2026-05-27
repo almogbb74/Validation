@@ -9,12 +9,9 @@ public interface UserValidation extends Function<User, ValidationResult> {
     String REASON_INVALID_NONE = "A condition was unexpectedly fulfilled in a 'none' check.";
     String REASON_INVALID_EMAIL_NOT_END_WITH_IL = "Email does not end with 'il'.";
     String REASON_INVALID_EMAIL_LEN_SHORT = "Email length is not greater than 10.";
-    String REASON_INVALID_PASSWORD_LEN = "Password length is not greater than 8.";
-    String REASON_INVALID_PASSWORD_LEN_SHORT = REASON_INVALID_PASSWORD_LEN;
-    String REASON_INVALID_PASSWORD_LETTERS_NUMBERS = "Password must contain only letters and numbers.";
-    String REASON_INVALID_PASSWORD_NOT_LETTERS_NUMBERS = REASON_INVALID_PASSWORD_LETTERS_NUMBERS;
-    String REASON_INVALID_PASSWORD_DOLLAR_SIGN = "Password does not include a '$' sign.";
-    String REASON_INVALID_PASSWORD_NOT_CONTAIN_DOLLAR_SIGN = REASON_INVALID_PASSWORD_DOLLAR_SIGN;
+    String REASON_INVALID_PASSWORD_LEN_SHORT = "Password length is not greater than 8.";
+    String REASON_INVALID_PASSWORD_NOT_LETTERS_NUMBERS = "Password must contain only letters and numbers.";
+    String REASON_INVALID_PASSWORD_NOT_CONTAIN_DOLLAR_SIGN = "Password does not include a '$' sign.";
     String REASON_INVALID_PASSWORD_EQUALS_USERNAME = "Password must be different from the username.";
     String REASON_INVALID_AGE_BELOW_18 = "Age is not greater than 18.";
     String REASON_INVALID_USERNAME_LEN_SHORT = "Username length is not greater than 8.";
